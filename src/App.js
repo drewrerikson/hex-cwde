@@ -16,6 +16,7 @@ import {
 } from "./constants";
 
 import styles from "./App.module.scss";
+import { ThemeProvider, createTheme } from "@mui/material";
 
 export const App = () => {
   const [currentEngine, setCurrentEngine] = useState(null);
@@ -31,6 +32,21 @@ export const App = () => {
   const [engines, setEngines] = useState(DEFAULT_ENGINE_STORE);
 
   const [rollDisplayTimeout, setRollDisplayTimeout] = useState();
+
+  const theme = createTheme({
+    components: {
+      MuiSelect: {
+        styleOverrides: {
+          select: {
+            padding: '9px 14px'
+          }
+        }
+      },
+    },
+    typography: {
+      fontFamily: "Graphik,Roboto,Arial"
+    }
+  });
 
   useEffect(() => {
     const engineId = Store.get(LOCAL_STORAGE_CURRENT_ENGINE_KEY);
@@ -150,7 +166,7 @@ export const App = () => {
   };
 
   return (
-    <>
+    <ThemeProvider theme={theme}>
       {roll ? (
         <section className={styles.roll}>
           <p>
@@ -193,7 +209,7 @@ export const App = () => {
         )}
         <p>v{process.env.REACT_APP_VERSION}</p>
       </footer>
-    </>
+    </ThemeProvider>
   );
 };
 

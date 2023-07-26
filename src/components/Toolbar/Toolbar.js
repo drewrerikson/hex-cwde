@@ -14,6 +14,7 @@ import {
 } from "../../constants";
 
 import styles from "./Toolbar.module.scss";
+import { Button, Checkbox, MenuItem, Select } from "@mui/material";
 
 export const Toolbar = ({
   setRoll,
@@ -61,9 +62,9 @@ export const Toolbar = ({
   const renderEngineOptions = () => {
     return engines.map(({ id, name }) => {
       return (
-        <option key={`engine-${id}`} value={id}>
+        <MenuItem key={`engine-${id}`} value={id}>
           {name}
-        </option>
+        </MenuItem>
       );
     });
   };
@@ -101,29 +102,29 @@ export const Toolbar = ({
     <nav className={styles.toolbar}>
       <ul className={styles.list}>
         <li className={styles.listItem}>
-          <button onClick={runEngine}>Run Engine (2d6)</button>
+          <Button variant={"contained"} onClick={runEngine}>Run Engine (2d6)</Button>
         </li>
         <li className={styles.listItem}>
-          <button onClick={randomHex}>Random (1d19)</button>
+          <Button variant={"contained"} onClick={randomHex}>Random (1d19)</Button>
         </li>
         <li className={styles.listItem}>
-          <button onClick={restartEngine}>Restart</button>
+          <Button variant={"contained"} onClick={restartEngine}>Restart</Button>
         </li>
         <li className={styles.listItem}>
           <label htmlFor="choose-engine">Engine</label>
-          <select
+          <Select
             id="choose-engine"
             onChange={onChooseEngine}
             disabled={engines.length < 2}
             value={currentEngine.id}
+            style={{marginLeft: 4}}
           >
             {renderEngineOptions()}
-          </select>
+          </Select>
         </li>
         <li className={styles.listItem}>
           <label htmlFor="show-annotations">Show Roll Map</label>
-          <input
-            type="checkbox"
+          <Checkbox
             value={1}
             checked={showAnnotations}
             onChange={onChangeAnnotations}
